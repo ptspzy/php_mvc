@@ -1,3 +1,1 @@
-<p>Oops, this is the error page.</p>
-
-<p>Looks like something went wrong.</p>
+<h1>404 出错</h1>
