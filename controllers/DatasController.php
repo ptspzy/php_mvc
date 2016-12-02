@@ -3,7 +3,8 @@
 class DatasController
 {
 
-    public function aaa(){
+    public function aaa()
+    {
         echo 'DatasController';
     }
 
@@ -50,7 +51,8 @@ EOF;
 
     }
 
-    function getArticleInfoById($id){
+    function getArticleInfoById($id)
+    {
 
     }
 
@@ -59,7 +61,7 @@ EOF;
         $ids = [35658, 4, 1284];
 
         $articles = [];
-        for ($i = 0;$i<count($ids);$i++){
+        for ($i = 0; $i < count($ids); $i++) {
             $articles[$i]['name'] = ArticleModel::getArticleNameById($ids[$i]);
             $articles[$i]['data'] = ArticleModel::getCountByDay($ids[$i]);
         }
@@ -74,8 +76,20 @@ EOF;
 
     function showChapterChart()
     {
-        //$ids = []
-        require_once('views/datas/chapter_chart.php');
+        $articleid = 35658;
+
+        $ids = ChapterModel::getVipChapterIds($articleid);
+
+        $chapters = [];
+        for ($i = 0; $i < count($ids); $i++) {
+            $chapters[$i]['name'] = ChapterModel::getChapterNameById($ids[$i]['id']);
+            $chapters[$i]['data'] = ChapterModel::getCountByHour($articleid,$ids[$i]['id']);
+        }
+
+        //var_dump($chapters);die;
+        $chapters = json_encode($chapters, JSON_UNESCAPED_UNICODE);
+
+        require_once('views/datas/chapter_chart1.php');
     }
 }
 
