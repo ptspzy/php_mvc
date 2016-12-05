@@ -1,6 +1,7 @@
 <?php
 
 function call ($controller,$action){
+
     //首字母大写
     $controller = ucfirst($controller)."Controller";
 

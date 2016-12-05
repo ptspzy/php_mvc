@@ -20,6 +20,7 @@
 <div id="main" style="width: 1400px;height:900px;"></div>
 <script type="text/javascript">
     var datas = <?php echo $article ?>;
+    console.log(datas);
     var articleNames = [];
     var xAxisShow = [];
     var seriesDatas = [];
@@ -55,7 +56,7 @@
 
             seriesDatas.push(series);
         });
-
+        console.log(seriesDatas);
         // 始化echarts实例
         var myChart = echarts.init(document.getElementById('main'));
 

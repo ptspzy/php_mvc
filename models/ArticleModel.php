@@ -35,21 +35,20 @@ class ArticleModel
     public static function getCountByDay($articleid, $beginTime, $endTime)
     {
         $db = Db::getInstance();
-
-        $defaultBeginTime = date("Y-m-d", strtotime("-7 day")) . " 00:00:00";
-        $defaultBeginTime = time($defaultBeginTime);
+//
+//        $defaultBeginTime = date("Y-m-d", strtotime("-7 day")) . " 00:00:00";
+//        $defaultBeginTime = time($defaultBeginTime);
 
         // For testing
-        $defaultBeginTime = 0;//1173743584
+        $defaultBeginTime = 1173743584;//1173743584
         $endTime = time();//1474297261
-        //$articleid = 35658;
 
         $sql = <<<EOF
             SELECT 
-                count( * ) AS num, 
+                count(*) AS num, 
                 from_unixtime( buytime , '%Y-%m-%d' ) AS time
             FROM 
-                test_yueloo.jieqi_article_sale  
+                jieqi_article_sale  
             WHERE 
                 articleid = :articleid 
              and
@@ -57,7 +56,9 @@ class ArticleModel
              and 
                   buytime < :endTime     
             GROUP BY 
-                from_unixtime( buytime , '%Y%m%d' )                       
+                from_unixtime( buytime , '%Y%m%d' )
+            ORDER BY 
+                buytime
 EOF;
 
 
@@ -71,15 +72,44 @@ EOF;
 
         $result_arr = $sth->fetchAll(PDO::FETCH_ASSOC);
 
-        $length = count($result_arr) - 1;
-        for ($i = 0; $i < $length; $i++) {
-            $result_arr[$i + 1]['num'] += $result_arr[$i]['num'];
+        $lengthResult = count($result_arr);
 
-           // echo $result_arr[$i + 1]['num'].'</br>';
+
+
+
+
+        $length = round(($endTime - $defaultBeginTime) / 86400);
+
+        //存储格式化好的数据（时间节点无数据需要设置0值）
+        $result = array(array());
+
+
+        $time = strtotime(date("Y-m-d", $defaultBeginTime));
+
+        for ($i = 0; $i < $length; $i++) {
+
+            $result[$i]['num'] = '0';
+            $result[$i]['time'] = date("Y-m-d", $time + 86400 * $i);
         }
-        //die;
-//        var_dump($result_arr);die;
-        return $result_arr;
+
+        $position = 0;
+        for ($i = 0; $i < $lengthResult; $i++) {
+            for ($j = $position; $j < $length; $j++) {
+                if($result[$j]['time'] == $result_arr[$i]['time']){
+                    $result[$j]['num'] = $result_arr[$i]['num'];
+                    $position = $j;
+                    break;
+                }
+            }
+
+        }
+
+//        //累加求和
+//        for ($i = 0; $i < $length - 1; $i++) {
+//            $result[$i + 1]['num'] += $result[$i]['num'];
+//        }
+
+        return $result;
     }
 }
 

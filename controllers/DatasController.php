@@ -58,16 +58,13 @@ EOF;
 
     function showArticleChart()
     {
-        $ids = [35658, 4, 1284];
+        $ids = [4, 35658, 1284];//
 
         $articles = [];
         for ($i = 0; $i < count($ids); $i++) {
             $articles[$i]['name'] = ArticleModel::getArticleNameById($ids[$i]);
             $articles[$i]['data'] = ArticleModel::getCountByDay($ids[$i]);
         }
-
-
-        //var_dump($articles);die;
 
         $article = json_encode($articles, JSON_UNESCAPED_UNICODE);
 
@@ -83,10 +80,10 @@ EOF;
         $chapters = [];
         for ($i = 0; $i < count($ids); $i++) {
             $chapters[$i]['name'] = ChapterModel::getChapterNameById($ids[$i]['id']);
-            $chapters[$i]['data'] = ChapterModel::getCountByHour($articleid,$ids[$i]['id']);
+            $chapters[$i]['data'] = ChapterModel::getCountByHour($articleid, $ids[$i]['id']);
         }
 
-        //var_dump($chapters);die;
+//        var_dump($chapters);die;
         $chapters = json_encode($chapters, JSON_UNESCAPED_UNICODE);
 
         require_once('views/datas/chapter_chart1.php');

@@ -17,7 +17,7 @@
 </head>
 <body>
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div id="main" style="width: 1400px;height:900px;"></div>
+<div id="main" style="width: 1600px;height:800px;"></div>
 <script type="text/javascript">
     var datas = <?php echo $chapters ?>;
     var chapterNames = [];
@@ -33,8 +33,10 @@
 
 
             chapterNames.push(chapter.name);
-
-            chapter.data.forEach(function (info,index) {
+            if(!chapter.data.length){
+                return ;
+            }
+            chapter.data.forEach(function (info, index) {
                 xAxisShow.push(info.time);
                 seriesData.push(info.num);
 
