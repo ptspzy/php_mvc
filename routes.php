@@ -12,7 +12,7 @@ function call ($controller,$action){
 $controllers = array(
     'pages' => ['home', 'error'],
     'posts' => ['index', 'show'],
-    'datas' =>['aaa','test','test001','showArticleChart','showChapterChart']
+    'datas' =>['test','showArticleChart','showChapterChart']
 );
 
 if (array_key_exists($controller, $controllers)) {
@@ -24,6 +24,4 @@ if (array_key_exists($controller, $controllers)) {
 } else {
     call('pages', 'error');
 }
-
-
 ?>

@@ -11,14 +11,15 @@ require_once('connection.php');
 //    echo 'MySQL connection fails!';
 //    return;
 //}
+
 //?controller=datas&action=showChapterChart
 if (isset($_GET['controller']) && isset($_GET['action'])) {
     $controller = $_GET['controller'];
     $action = $_GET['action'];
 
 } else {
-    $controller = 'datas';
-    $action = 'test';
+    $controller = 'pages';
+    $action = 'error';
 }
 
 require_once('routes.php');

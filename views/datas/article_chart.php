@@ -35,7 +35,7 @@
 
             articleNames.push(article.name);
 
-            article.data.forEach(function (info,index) {
+            article.data.forEach(function (info, index) {
                 xAxisShow.push(info.time);
                 seriesData.push(info.num);
 
@@ -56,7 +56,7 @@
 
             seriesDatas.push(series);
         });
-        console.log(seriesDatas);
+
         // 始化echarts实例
         var myChart = echarts.init(document.getElementById('main'));
 

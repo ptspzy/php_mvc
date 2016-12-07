@@ -67,7 +67,7 @@ EOF;
             limit :defaultLimit)                  
 EOF;
 
-        $sql .=$sql_end;
+        $sql .= $sql_end;
         $sth = $db->prepare($sql);
 
         $sth->bindParam(':articleid', $articleid, PDO::PARAM_INT);
@@ -76,7 +76,6 @@ EOF;
         $sth->execute();
 
         $result_arr = $sth->fetchAll(PDO::FETCH_ASSOC);
-//        var_dump($result_arr);die;
         return $result_arr;
     }
 
@@ -91,12 +90,8 @@ EOF;
         $db = Db::getInstance();
 
         //最近七天
-//        $endTime = time();
-//        $defaultBeginTime = strtotime(date("Y-m-d", strtotime("-7 day")) . " 00:00:00");
-
-        // For testing
-        $defaultBeginTime = 1343797200;//2012-08-01 13:00:00
-        $endTime = 1347789600;
+        $endTime = time();
+        $defaultBeginTime = strtotime(date("Y-m-d", strtotime("-7 day")) . " 00:00:00");
 
         $sql = <<<EOF
             SELECT 
@@ -132,7 +127,7 @@ EOF;
 
         $lengthResult = count($result_arr);
 
-        $length = round(($endTime - $defaultBeginTime) / 3600);
+        $length = (int)(($endTime - $defaultBeginTime) / 3600) + 1;
 
         //存储格式化好的数据（时间节点无数据需要设置0值）
         $result = array(array());
@@ -149,7 +144,7 @@ EOF;
         $position = 0;
         for ($i = 0; $i < $lengthResult; $i++) {
             for ($j = $position; $j < $length; $j++) {
-                if($result[$j]['time'] == $result_arr[$i]['time']){
+                if ($result[$j]['time'] == $result_arr[$i]['time']) {
                     $result[$j]['num'] = $result_arr[$i]['num'];
                     $position = $j;
                     break;
@@ -157,8 +152,6 @@ EOF;
             }
 
         }
-
-//        var_dump($result);die;
 
         //累加求和
 //        $length = count($result_arr) - 1;

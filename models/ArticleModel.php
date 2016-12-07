@@ -8,17 +8,6 @@
  */
 class ArticleModel
 {
-    // we define 3 attributes
-    // they are public so that we can access them using $post->author directly
-    public $id;
-    public $articlename;
-
-    public function __construct($id, $articlename)
-    {
-        $this->id = $id;
-        $this->articlename = $articlename;
-    }
-
     public static function getArticleNameById($id)
     {
         $db = Db::getInstance();
@@ -32,7 +21,7 @@ class ArticleModel
         return $post['articlename'];
     }
 
-    public static function getCountByDay($articleid, $beginTime, $endTime)
+    public static function getCountByDay($articleid)
     {
         $db = Db::getInstance();
 //
@@ -40,8 +29,8 @@ class ArticleModel
 //        $defaultBeginTime = time($defaultBeginTime);
 
         // For testing
-        $defaultBeginTime = 1173743584;//1173743584
-        $endTime = time();//1474297261
+        $defaultBeginTime = 1173743584;
+        $endTime = time();
 
         $sql = <<<EOF
             SELECT 
@@ -74,11 +63,7 @@ EOF;
 
         $lengthResult = count($result_arr);
 
-
-
-
-
-        $length = round(($endTime - $defaultBeginTime) / 86400);
+        $length = (int)(($endTime - $defaultBeginTime) / 86400) + 1;
 
         //存储格式化好的数据（时间节点无数据需要设置0值）
         $result = array(array());
@@ -95,7 +80,7 @@ EOF;
         $position = 0;
         for ($i = 0; $i < $lengthResult; $i++) {
             for ($j = $position; $j < $length; $j++) {
-                if($result[$j]['time'] == $result_arr[$i]['time']){
+                if ($result[$j]['time'] == $result_arr[$i]['time']) {
                     $result[$j]['num'] = $result_arr[$i]['num'];
                     $position = $j;
                     break;
