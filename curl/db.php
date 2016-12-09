@@ -10,9 +10,9 @@
 header("Content-type: text/html; charset=utf-8");
 header('Access-Control-Allow-Origin: *');
 
-$dsn = 'mysql:dbname=town;host=123.206.44.122';
-$user = 'ptspzy';
-$password = 'mysqlpts';
+$dsn = 'mysql:dbname=**;host=**';
+$user = '**';
+$password = '**';
 
 try{
     $pdo = new PDO($dsn,$user,$password);

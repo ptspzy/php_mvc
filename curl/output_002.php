@@ -12,12 +12,13 @@ require_once('db.php');
 
 $sql = <<<EOF
            SELECT
-            id AS id, 
+            id AS id,
+            mosaic AS imgM, 
             original AS imgO, 
             thumbnail AS imgT
            FROM
             town.image
-           LIMIT 2500,500            
+           LIMIT 11000,9000            
 EOF;
 
 $rs = $pdo->query($sql);
@@ -25,6 +26,7 @@ $rs = $pdo->query($sql);
 $result_arr = $rs->fetchAll();
 
 foreach ($result_arr as $key => $image) {
+    save_img($image['imgM']);
     save_img($image['imgO']);
     save_img($image['imgT']);
     $key++;
@@ -44,7 +46,6 @@ function save_img($path)
 
     //创建文件夹
     mkdir($dir, 0777, true);
-
 
     $filename = $dir . $dirs[4] . ".jpg";
 

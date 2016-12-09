@@ -12,12 +12,12 @@ require_once('db.php');
 
 $sql = <<<EOF
            SELECT
-            id AS id, 
+            id AS id,
             original AS imgO, 
             thumbnail AS imgT
            FROM
             town.image
-           LIMIT 2500,500            
+           LIMIT 7000,3000            
 EOF;
 
 $rs = $pdo->query($sql);
