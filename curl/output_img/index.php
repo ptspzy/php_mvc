@@ -31,7 +31,7 @@ foreach ($result_arr as $key => $image) {
 
 function save_img($path)
 {
-    $host = "https://s3.cn-north-1.amazonaws.com.cn/res.augmn.cn/";
+    $host = IMG_HOST;
     $url = $host . $path;
 
     $dirs = explode("/", $path);
