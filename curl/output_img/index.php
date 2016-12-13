@@ -8,16 +8,14 @@
 
 require_once('db.php');
 
-
-
 $sql = <<<EOF
            SELECT
-            id AS id, 
+            id AS id,
             original AS imgO, 
             thumbnail AS imgT
            FROM
             town.image
-           LIMIT 2500,500            
+           LIMIT 0,10           
 EOF;
 
 $rs = $pdo->query($sql);
@@ -42,9 +40,10 @@ function save_img($path)
 
     $curl = curl_init($url);
 
-    //创建文件夹
-    mkdir($dir, 0777, true);
-
+    if (! file_exists ( $dir )) {
+        //创建文件夹
+        mkdir($dir, 0777, true);
+    }
 
     $filename = $dir . $dirs[4] . ".jpg";
 
