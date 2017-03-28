@@ -12,20 +12,19 @@ class ClassAutoLoader
 
     public function __construct()
     {
-        $this->basicDir=__DIR__;
+        $this->basicDir= __DIR__;//TODO: set require_once static path
         spl_autoload_register(array($this, 'loader'));
-
     }
 
     private function loader($className) {
-        $fileName = $this->basicDir.'/controllers/'.$className.'.php';
-
+        $fileName = 'controllers/'.$className.'.php';
         if(file_exists($fileName)){
-            require_once ($fileName);
+            require_once($fileName);
         }
-        $fileName = $this->basicDir.'/models/'.$className.'.php';
+
+        $fileName = 'models/'.$className.'.php';
         if(file_exists($fileName)){
-            require_once ($fileName);
+            require_once($fileName);
         }
     }
 

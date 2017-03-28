@@ -1,4 +1,4 @@
-config.php
+/config
 .idea/*
 demo/curl/image/
 demo/curl/output_img/config.php

@@ -1,26 +1,27 @@
 <?php
-require_once('ClassAutoLoader.php');
+require_once 'lib/ClassAutoLoader.php';
 new ClassAutoLoader();
 
+require_once('db/connection.php');
 
-require_once('connection.php');
+new PagesController();
 
-//if (Db::getInstance()) {
+// if (Db::getInstance()) {
 //    echo 'MySQL connection is successful!';
-//} else {
+// } else {
 //    echo 'MySQL connection fails!';
 //    return;
-//}
+// }
 
-//?controller=datas&action=showChapterChart
+// ?controller=index&action=index
 if (isset($_GET['controller']) && isset($_GET['action'])) {
     $controller = $_GET['controller'];
     $action = $_GET['action'];
 
 } else {
-    $controller = 'pages';
-    $action = 'error';
+    $controller = 'index';
+    $action = 'index';
 }
 
-require_once('routes.php');
+require_once('config/routes.php');
 ?>
