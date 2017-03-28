@@ -2,7 +2,6 @@
 
 function call($controller, $action)
 {
-
     //首字母大写
     $controller = ucfirst($controller) . "Controller";
 
@@ -12,8 +11,7 @@ function call($controller, $action)
 
 $controllers = array(
     'pages' => ['home', 'error'],
-    'posts' => ['index', 'show'],
-    'datas' => ['test', 'showArticleChart', 'showChapterChart']
+    'index' => ['index'],
 );
 
 if (array_key_exists($controller, $controllers)) {
